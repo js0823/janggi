@@ -2,3 +2,4 @@
 # Main for the whole game.
 # Author : Jongseo Yoon
 
+import pygame
