@@ -1,4 +1,4 @@
-# Jangi
+# Janggi
 
 Jangi is a traditional Asian chess-like game where two players move a piece turn-by-turn and defeat the opponent by killing the King at the end. In this project, the aim is to write a Python program where either two players can play.
 
