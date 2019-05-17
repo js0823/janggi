@@ -1,4 +1,6 @@
 import pygame
+from .config import Config
+from .board import Board
 
 class Game:
     def __init__(self, display):
@@ -11,7 +13,6 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
-                print(event)
 
         pygame.display.update()
-        clock.tick(30)
+        clock.tick(Config['game']['fps'])
