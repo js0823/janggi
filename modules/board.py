@@ -32,7 +32,6 @@ class Board:
             startY = (col * self.spaceHeight) + self.yMargin
             endX = self.xMargin + (self.boardRow * self.spaceHeight)
             endY = (col * self.spaceHeight) + self.yMargin
-            print((startX, startY), (endX, endY))
             pygame.draw.line(board_surface, (0, 0, 0), (startX, startY), (endX, endY))
         
         pygame.draw.line(board_surface, (0, 0, 0), (320, 50), (500, 210))
