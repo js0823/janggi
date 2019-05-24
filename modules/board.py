@@ -1,9 +1,10 @@
 import pygame
 from .config import Config
+from math import sqrt
 
 class Board:
     def __init__(self):
-        self.windowSize = 1000
+        self.windowSize = 820
         self.boardRow = 9
         self.boardCol = 8
         #self.xMargin = (self.windowWidth - (self.boardRow * self.rowSpaceSize)) // 2
@@ -15,15 +16,6 @@ class Board:
         self.background_Color = Config['board']['color'] # Background color is yellowish
 
     def draw_Board(self):
-
-        #surface_Size = 800
-        #width_No, height_No = 8, 9 # height and weight number of squares
-        
-        #wSquare_Size = surface_Size // width_No
-        #hSquare_Size = surface_Size // height_No
-        #wSurface_Size = wSquare_Size * width_No
-        #hSurface_Size = hSquare_Size * height_No
-
         board_surface = pygame.display.set_mode((self.windowSize, self.windowSize))
         board_surface.fill(self.background_Color)
         
@@ -40,7 +32,13 @@ class Board:
             startY = (col * self.spaceHeight) + self.yMargin
             endX = self.xMargin + (self.boardRow * self.spaceHeight)
             endY = (col * self.spaceHeight) + self.yMargin
+            print((startX, startY), (endX, endY))
             pygame.draw.line(board_surface, (0, 0, 0), (startX, startY), (endX, endY))
+        
+        pygame.draw.line(board_surface, (0, 0, 0), (320, 50), (500, 210))
+        pygame.draw.line(board_surface, (0, 0, 0), (500, 50), (320, 210))
+        pygame.draw.line(board_surface, (0, 0, 0), (320, 610), (500, 770))
+        pygame.draw.line(board_surface, (0, 0, 0), (320, 770), (500, 610))
         
         pygame.display.flip()
 
