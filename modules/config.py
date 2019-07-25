@@ -6,6 +6,6 @@ Config = {
     },
     'board': {
         'color': (226, 173, 47),
-        'cellSize': 50
+        'boardSize': 820
     }
 }

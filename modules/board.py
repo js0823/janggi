@@ -4,7 +4,7 @@ from math import sqrt
 
 class Board:
     def __init__(self):
-        self.windowSize = 820
+        self.windowSize = Config['board']['boardSize']
         self.boardRow = 9
         self.boardCol = 8
         #self.xMargin = (self.windowWidth - (self.boardRow * self.rowSpaceSize)) // 2

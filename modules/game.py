@@ -1,6 +1,12 @@
 import pygame
 from .config import Config
 from .board import Board
+from pygame.locals import MOUSEBUTTONDOWN, MOUSEBUTTONUP
+
+def checkQuit():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit()
 
 class Game:
     def __init__(self, display):
@@ -10,9 +16,7 @@ class Game:
         clock = pygame.time.Clock()
 
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    exit()
+            checkQuit()
 
         pygame.display.update()
         clock.tick(Config['game']['fps'])
