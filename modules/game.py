@@ -3,6 +3,8 @@ from .config import Config
 from .board import Board
 from pygame.locals import MOUSEBUTTONDOWN, MOUSEBUTTONUP
 
+squareCenters = []
+
 def checkQuit():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
