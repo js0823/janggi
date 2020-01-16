@@ -26,5 +26,24 @@ class Piece(pygame.sprite.Sprite):
 
 class Cha(Piece):
     def __init__(self, image, position, team):
-        return super().__init__(image, position, team)
-        self.bool = 0
+        super().__init__(image, position, team)
+
+class King(Piece):
+    def __init__(self, image, position, team):
+        super().__init__(image, position, team)
+
+class Ma(Piece):
+    def __init__(self, image, position, team):
+        super().__init__(image, position, team)
+
+class Po(Piece):
+    def __init__(self, image, position, team):
+        super().__init__(image, position, team)
+
+class Sang(Piece):
+    def __init__(self, image, position, team):
+        super().__init__(image, position, team)
+
+class Zol(Piece):
+    def __init__(self, image, position, team):
+        super().__init__(image, position, team)

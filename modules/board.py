@@ -1,10 +1,11 @@
 import pygame
-from .config import Config
+from .config import BoardSettings
 from math import sqrt
 
 class Board:
     def __init__(self):
-        self.windowSize = Config['board']['boardSize']
+        self.boardSettings = BoardSettings()
+        self.windowSize = self.boardSettings.boardSize
         self.boardRow = 9
         self.boardCol = 8
         #self.xMargin = (self.windowWidth - (self.boardRow * self.rowSpaceSize)) // 2
@@ -13,11 +14,11 @@ class Board:
         self.yMargin = 50
         self.spaceHeight = (self.windowSize - self.xMargin - self.xMargin) // self.boardRow
         self.spaceWidth = (self.windowSize -self.yMargin - self.xMargin) // self.boardCol
-        self.background_Color = Config['board']['color'] # Background color is yellowish
+        self.background_color = self.boardSettings.color
 
-    def draw_Board(self):
+    def drawBoard(self):
         board_surface = pygame.display.set_mode((self.windowSize, self.windowSize))
-        board_surface.fill(self.background_Color)
+        board_surface.fill(self.background_color)
         
         # Draw vertical lines
         for row in range(self.boardCol + 1):
@@ -34,6 +35,8 @@ class Board:
             endY = (col * self.spaceHeight) + self.yMargin
             pygame.draw.line(board_surface, (0, 0, 0), (startX, startY), (endX, endY))
         
+
+        # draw diagonal lines
         pygame.draw.line(board_surface, (0, 0, 0), (320, 50), (500, 210))
         pygame.draw.line(board_surface, (0, 0, 0), (500, 50), (320, 210))
         pygame.draw.line(board_surface, (0, 0, 0), (320, 610), (500, 770))
