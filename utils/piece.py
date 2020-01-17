@@ -6,10 +6,10 @@ data = json.load(open('assets/janggi_pieces.json'))
 
 
 class Piece:
-    def __init__(self, game):
-        self.image = None
-        self.name = ''
-        self.team = ''
+    def __init__(self, game, name, team, image):
+        self.image = image
+        self.name = name
+        self.team = team
     
         self.screen = game.screen
 
@@ -37,11 +37,9 @@ class JanggiSet:
                             data['frames']['Green_Cha.png']['frame']['w'],
                             data['frames']['Green_Cha.png']['frame']['h'])
         
-        g_cha_image = pieces_ss.image_at(g_cha_rect)
-        g_cha = Piece(self.game)
-        g_cha.image = g_cha_image
-        g_cha.name = 'gCha'
-        g_cha.color = 'Green'
+        blackTransparency = (0, 0, 0)
+        g_cha_image = pieces_ss.image_at(g_cha_rect, blackTransparency)
+        g_cha = Piece(self.game, 'gCha', 'Green', g_cha_image)
         self.pieces.append(g_cha)
 
 class SpriteSheet:
