@@ -1,17 +1,20 @@
 import pygame
-from .config import BoardSettings
-from math import sqrt
+from .settings import BoardSettings
+
 
 class Board:
+    """
+    Everything that has to do with boards.
+    """
     def __init__(self):
         self.boardSettings = BoardSettings()
         self.windowSize = self.boardSettings.boardSize
-        self.boardRow = 9
-        self.boardCol = 8
+        self.boardRow = self.boardSettings.boardRow
+        self.boardCol = self.boardSettings.boardCol
         #self.xMargin = (self.windowWidth - (self.boardRow * self.rowSpaceSize)) // 2
         #self.yMargin = (self.windowHeight - (self.boardColumn * self.colSpaceSize)) // 2
-        self.xMargin = 50
-        self.yMargin = 50
+        self.xMargin = self.boardSettings.xMargin
+        self.yMargin = self.boardSettings.yMargin
         self.spaceHeight = (self.windowSize - self.xMargin - self.xMargin) // self.boardRow
         self.spaceWidth = (self.windowSize -self.yMargin - self.xMargin) // self.boardCol
         self.background_color = self.boardSettings.color
@@ -22,18 +25,18 @@ class Board:
         
         # Draw vertical lines
         for row in range(self.boardCol + 1):
-            startX = (row * self.spaceWidth) + self.xMargin
-            startY = self.yMargin
-            endX = (row * self.spaceWidth) + self.xMargin
-            endY = self.yMargin + (self.boardCol * self.spaceWidth)
-            pygame.draw.line(board_surface, (0, 0, 0), (startX, startY), (endX, endY))
+            start_x = (row * self.spaceWidth) + self.xMargin
+            start_y = self.yMargin
+            end_x = (row * self.spaceWidth) + self.xMargin
+            end_y = self.yMargin + (self.boardCol * self.spaceWidth)
+            pygame.draw.line(board_surface, (0, 0, 0), (start_x, start_y), (end_x, end_y))
         # draw column lines
         for col in range(self.boardRow + 1):
-            startX = self.xMargin
-            startY = (col * self.spaceHeight) + self.yMargin
-            endX = self.xMargin + (self.boardRow * self.spaceHeight)
-            endY = (col * self.spaceHeight) + self.yMargin
-            pygame.draw.line(board_surface, (0, 0, 0), (startX, startY), (endX, endY))
+            start_x = self.xMargin
+            start_y = (col * self.spaceHeight) + self.yMargin
+            end_x = self.xMargin + (self.boardRow * self.spaceHeight)
+            end_y = (col * self.spaceHeight) + self.yMargin
+            pygame.draw.line(board_surface, (0, 0, 0), (start_x, start_y), (end_x, end_y))
         
 
         # draw diagonal lines

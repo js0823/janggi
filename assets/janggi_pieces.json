@@ -1,0 +1,295 @@
+{
+	"frames": {
+		"Green_Cha.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Green_King.png": {
+			"frame": {
+				"x": 122,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Green_Ma.png": {
+			"frame": {
+				"x": 243,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Green_Po.png": {
+			"frame": {
+				"x": 364,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Green_Sa.png": {
+			"frame": {
+				"x": 485,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Green_Sang.png": {
+			"frame": {
+				"x": 606,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Green_Zol.png": {
+			"frame": {
+				"x": 727,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Red_Cha.png": {
+			"frame": {
+				"x": 848,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Red_Jol.png": {
+			"frame": {
+				"x": 969,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Red_King.png": {
+			"frame": {
+				"x": 1090,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Red_Ma.png": {
+			"frame": {
+				"x": 1211,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Red_Po.png": {
+			"frame": {
+				"x": 1332,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Red_Sa.png": {
+			"frame": {
+				"x": 1453,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		},
+		"Red_Sang.png": {
+			"frame": {
+				"x": 1574,
+				"y": 1,
+				"w": 119,
+				"h": 105
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 119,
+				"h": 105
+			},
+			"sourceSize": {
+				"w": 119,
+				"h": 105
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 1694,
+			"h": 107
+		},
+		"scale": "1"
+	}
+}
