@@ -15,6 +15,9 @@ class Piece:
     def draw(self, position):
         self.rect.center = position[0], position[1]
         self.screen.blit(self.image, self.rect)
+    
+    def update(self, position):
+        self.rect.center = position[0], position[1]
 
 class JanggiSet:
     def __init__(self, game, color, pieceImages, pieceData):

@@ -38,7 +38,7 @@ class JanggiGame:
         self.turn = 0 # 0 is red, 1 is green
   
     def run_game(self):
-        self.initialize_board()
+        self.initialize_pieces()
         while True:
             self.check_events()
             self.update_screen()
@@ -68,7 +68,7 @@ class JanggiGame:
                 else:
                     self.grabbed_piece = self.grab_piece(cursorPos, self.green_set)
             elif self.mouseDown == False and self.mouseReleased == False and self.grabbed_piece: # piece is grabbed and all mouse is released
-                self.grabbed_piece.draw(pygame.mouse.get_pos())
+                self.grabbed_piece.update(pygame.mouse.get_pos())
 
     def grab_piece(self, cursorPos, janggiSet):
         for piece in janggiSet.pieces:
@@ -77,7 +77,7 @@ class JanggiGame:
                 return piece
     
             
-    def initialize_board(self):
+    def initialize_pieces(self):
         zolPos = 0
         chaPos = 0
         poPos = 1
