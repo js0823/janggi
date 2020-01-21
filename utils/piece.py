@@ -1,21 +1,19 @@
 import pygame
 from .settings import BoardSettings
 import json
+import math
 
 class Piece:
-    def __init__(self, game, name, team, image):
+    def __init__(self, game, name, team, size, image):
         self.screen = game.screen
         self.name = name
         self.team = team
         self.image = image
-
-        self.x, self.y = 0, 0
-
-    def put(self, position):
+        self.size = size
         self.rect = self.image.get_rect()
-        self.x = position[0]
-        self.y = position[1]
-        self.rect.center = self.x, self.y
+
+    def draw(self, position):
+        self.rect.center = position[0], position[1]
         self.screen.blit(self.image, self.rect)
 
 class JanggiSet:
@@ -36,6 +34,8 @@ class JanggiSet:
                         self.pieceData['frames'][self.color + '_' + name + '.png']['frame']['y'],
                         self.pieceData['frames'][self.color + '_' + name + '.png']['frame']['w'],
                         self.pieceData['frames'][self.color + '_' + name + '.png']['frame']['h'])
+            size = (self.pieceData['frames'][self.color + '_' + name + '.png']['sourceSize']['w'],
+                    self.pieceData['frames'][self.color + '_' + name + '.png']['sourceSize']['h'])
             
             num = None
             if name == 'Zol': # there are five Zol
@@ -48,7 +48,7 @@ class JanggiSet:
             for _ in range(num):
                 image = pieces_ss.image_at(rect, black_transparency)
                 image = pygame.transform.smoothscale(image, (90, 80))
-                piece = Piece(self.game, name, self.color, image)
+                piece = Piece(self.game, name, self.color, size, image)
                 self.pieces.append(piece)
 
 
