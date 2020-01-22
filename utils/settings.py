@@ -1,7 +1,7 @@
 class GameSettings:
     def __init__(self):
         self.name = 'Janggi'
-        self.version = '0.0.1'
+        self.version = '0.1'
         self.maxFPS = 30
 
 

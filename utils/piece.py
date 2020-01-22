@@ -4,20 +4,18 @@ import json
 import math
 
 class Piece:
-    def __init__(self, game, name, team, size, image):
+    def __init__(self, game, name, size, image):
         self.screen = game.screen
         self.name = name
-        self.team = team
         self.image = image
         self.size = size
         self.rect = self.image.get_rect()
+        self.grabbed = False
+        self.boardPos = None
 
     def draw(self, position):
         self.rect.center = position[0], position[1]
         self.screen.blit(self.image, self.rect)
-    
-    def update(self, position):
-        self.rect.center = position[0], position[1]
 
 class JanggiSet:
     def __init__(self, game, color, pieceImages, pieceData):
@@ -48,10 +46,10 @@ class JanggiSet:
             else: # only 1 king
                 num = 1
 
-            for _ in range(num):
+            for i in range(num):
                 image = pieces_ss.image_at(rect, black_transparency)
                 image = pygame.transform.smoothscale(image, (90, 80))
-                piece = Piece(self.game, name, self.color, size, image)
+                piece = Piece(self.game, self.color + name + str(i), size, image)
                 self.pieces.append(piece)
 
 

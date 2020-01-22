@@ -36,6 +36,9 @@ class JanggiGame:
 
         # player turn
         self.turn = 0 # 0 is red, 1 is green
+
+        # game board piece positions. 0 is empty.
+        self.boardGrid = [[0] * len(self.board.pieceLoc[0]) for _ in range(len(self.board.pieceLoc))]
   
     def run_game(self):
         self.initialize_pieces()
@@ -57,25 +60,23 @@ class JanggiGame:
                     if ask:
                         pygame.quit()
                         sys.exit()
-            # elif event.type == pygame.MOUSEBUTTONDOWN and self.grabbed_piece is None: # no grabbed piece yet
-            #     self.mouseDown = True
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                cursorPos = pygame.mouse.get_pos()
+            elif event.type == pygame.MOUSEBUTTONDOWN and not self.grabbed_piece: # mouse click on the piece
+                cursor = pygame.mouse.get_pos()
 
                 # grab the current player's piece
                 if self.turn == 0:
-                    self.grabbed_piece = self.grab_piece(cursorPos, self.red_set)
+                    self.grabbed_piece = self.grab_piece(cursor, self.red_set)
                 else:
-                    self.grabbed_piece = self.grab_piece(cursorPos, self.green_set)
-            elif self.mouseDown == False and self.mouseReleased == False and self.grabbed_piece: # piece is grabbed and all mouse is released
-                self.grabbed_piece.update(pygame.mouse.get_pos())
+                    self.grabbed_piece = self.grab_piece(cursor, self.green_set)
 
     def grab_piece(self, cursorPos, janggiSet):
         for piece in janggiSet.pieces:
             if piece.rect.collidepoint(cursorPos):
                 print(piece.name)
+                piece.grabbed = True
                 return piece
-    
+        
+        return
             
     def initialize_pieces(self):
         zolPos = 0
@@ -85,36 +86,78 @@ class JanggiGame:
         sangPos = 2
         saPos = 3
         for gPiece, rPiece in zip(self.green_set.pieces, self.red_set.pieces):
-            if gPiece.name == 'Zol':
+            if 'GreenZol' in gPiece.name and 'RedZol' in rPiece.name:
                 gPiece.draw(self.board.pieceLoc[3][zolPos])
                 rPiece.draw(self.board.pieceLoc[6][zolPos])
+                self.boardGrid[3][zolPos] = gPiece
+                self.boardGrid[6][zolPos] = rPiece
+                gPiece.boardPos = self.board.pieceLoc[3][zolPos]
+                rPiece.boardPos = self.board.pieceLoc[6][zolPos]
                 zolPos += 2
-            elif gPiece.name == 'Cha':
+            elif 'GreenCha' in gPiece.name and 'RedCha' in rPiece.name:
                 gPiece.draw(self.board.pieceLoc[0][chaPos])
                 rPiece.draw(self.board.pieceLoc[9][chaPos])
+                self.boardGrid[0][chaPos] = gPiece
+                self.boardGrid[9][chaPos] = rPiece
+                gPiece.boardPos = self.board.pieceLoc[0][chaPos]
+                rPiece.boardPos = self.board.pieceLoc[9][chaPos]
                 chaPos = 8
-            elif gPiece.name == 'Po':
+            elif 'GreenPo' in gPiece.name and 'RedPo' in rPiece.name:
                 gPiece.draw(self.board.pieceLoc[2][poPos])
                 rPiece.draw(self.board.pieceLoc[7][poPos])
+                self.boardGrid[2][poPos] = gPiece
+                self.boardGrid[7][poPos] = rPiece
+                gPiece.boardPos = self.board.pieceLoc[2][poPos]
+                rPiece.boardPos = self.board.pieceLoc[7][poPos]
                 poPos = 7
-            elif gPiece.name == 'Ma':
+            elif 'GreenMa' in gPiece.name and 'RedMa' in rPiece.name:
                 gPiece.draw(self.board.pieceLoc[0][maPos])
                 rPiece.draw(self.board.pieceLoc[9][maPos])
+                self.boardGrid[0][maPos] = gPiece
+                self.boardGrid[9][maPos] = rPiece
+                gPiece.boardPos = self.board.pieceLoc[0][maPos]
+                rPiece.boardPos = self.board.pieceLoc[9][maPos]
                 maPos = 7
-            elif gPiece.name == 'Sang':
+            elif 'GreenSang' in gPiece.name and 'RedSang' in rPiece.name:
                 gPiece.draw(self.board.pieceLoc[0][sangPos])
                 rPiece.draw(self.board.pieceLoc[9][sangPos])
+                self.boardGrid[0][sangPos] = gPiece
+                self.boardGrid[9][sangPos] = rPiece
+                gPiece.boardPos = self.board.pieceLoc[0][sangPos]
+                rPiece.boardPos = self.board.pieceLoc[9][sangPos]
                 sangPos = 6
-            elif gPiece.name == 'Sa':
+            elif 'GreenSa' in gPiece.name and 'RedSa' in rPiece.name:
                 gPiece.draw(self.board.pieceLoc[0][saPos])
                 rPiece.draw(self.board.pieceLoc[9][saPos])
+                self.boardGrid[0][saPos] = gPiece
+                self.boardGrid[9][saPos] = rPiece
+                gPiece.boardPos = self.board.pieceLoc[0][saPos]
+                rPiece.boardPos = self.board.pieceLoc[9][saPos]
                 saPos = 5
-            elif gPiece.name == 'King':
+            elif 'GreenKing' in gPiece.name and 'RedKing' in rPiece.name:
                 gPiece.draw(self.board.pieceLoc[1][4])
                 rPiece.draw(self.board.pieceLoc[8][4])
+                self.boardGrid[1][4] = gPiece
+                self.boardGrid[8][4] = rPiece
+                gPiece.boardPos = self.board.pieceLoc[1][4]
+                rPiece.boardPos = self.board.pieceLoc[8][4]
+            else:
+                print("Initialize board failed. Check your pieces.")
+                pygame.quit()
+                sys.exit()
    
     def update_screen(self):
         #pygame.draw.circle(self.screen, (255, 0, 0), (410, 450), 7)
+        if self.grabbed_piece:
+            cursor = pygame.mouse.get_pos()
+            self.grabbed_piece.boardPos = [cursor[0], cursor[1]]
+        
+        self.screen.fill([255, 255, 255])
+        self.screen = self.board.drawBoard()
+        for gPiece, rPiece in zip(self.green_set.pieces, self.red_set.pieces):
+            gPiece.draw(gPiece.boardPos)
+            rPiece.draw(rPiece.boardPos)
+
         pygame.display.update()
     
     def check_checkMate(self):
