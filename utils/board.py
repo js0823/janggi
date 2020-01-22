@@ -11,8 +11,6 @@ class Board:
         self.windowSize = self.boardSettings.boardSize
         self.boardRow = self.boardSettings.boardRow
         self.boardCol = self.boardSettings.boardCol
-        #self.xMargin = (self.windowWidth - (self.boardRow * self.rowSpaceSize)) // 2
-        #self.yMargin = (self.windowHeight - (self.boardColumn * self.colSpaceSize)) // 2
         self.xMargin = self.boardSettings.xMargin
         self.yMargin = self.boardSettings.yMargin
         self.spaceHeight = (self.windowSize - self.xMargin - self.xMargin) // self.boardRow
@@ -40,7 +38,6 @@ class Board:
             end_y = self.yMargin + (self.boardCol * self.spaceWidth)
             pygame.draw.line(board_surface, (0, 0, 0), (start_x, start_y), (end_x, end_y))
 
-
         # draw diagonal lines
         pygame.draw.line(board_surface, (0, 0, 0), 
                         (self.xMargin + 3 * self.spaceWidth, self.yMargin), (self.xMargin + 5 * self.spaceWidth, self.yMargin + 2 * self.spaceHeight))
@@ -50,8 +47,6 @@ class Board:
                         (self.xMargin + 3 * self.spaceWidth, self.yMargin + 7 * self.spaceHeight), (self.xMargin + 5 * self.spaceWidth, self.yMargin + 9 * self.spaceHeight))
         pygame.draw.line(board_surface, (0, 0, 0), 
                         (self.xMargin + 3 * self.spaceWidth, self.yMargin + 9 * self.spaceHeight), (self.xMargin + 5 * self.spaceWidth, self.yMargin + 7 * self.spaceHeight))
-        
-        pygame.display.flip()
 
         return board_surface
     

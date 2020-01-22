@@ -11,7 +11,7 @@ class Piece:
         self.size = size
         self.rect = self.image.get_rect()
         self.grabbed = False
-        self.boardPos = None
+        self.boardPos = None # board position in x y coordinate
 
     def draw(self, position):
         self.rect.center = position[0], position[1]

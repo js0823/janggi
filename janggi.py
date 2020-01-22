@@ -7,7 +7,7 @@ from utils.settings import GameSettings
 from utils.board import Board
 from tkinter import Tk, messagebox
 from utils.piece import JanggiSet
-
+import math
 
 class JanggiGame:
     """
@@ -48,6 +48,7 @@ class JanggiGame:
             self.clock.tick(self.game_settings.maxFPS)
    
     def check_events(self):
+        cursor = pygame.mouse.get_pos() # cursor position
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 ask = messagebox.askyesno(message="Would you like to quit?")
@@ -60,14 +61,35 @@ class JanggiGame:
                     if ask:
                         pygame.quit()
                         sys.exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN and not self.grabbed_piece: # mouse click on the piece
-                cursor = pygame.mouse.get_pos()
-
+            elif event.type == pygame.MOUSEBUTTONUP: # mouse click on the piece
+                if not self.grabbed_piece:
                 # grab the current player's piece
-                if self.turn == 0:
-                    self.grabbed_piece = self.grab_piece(cursor, self.red_set)
-                else:
-                    self.grabbed_piece = self.grab_piece(cursor, self.green_set)
+                    if self.turn == 0:
+                        self.grabbed_piece = self.grab_piece(cursor, self.red_set)
+                    else:
+                        self.grabbed_piece = self.grab_piece(cursor, self.green_set)
+                elif self.grabbed_piece:
+                    # check the distance of all available places piece can be put, and put the piece on the
+                    # closest position on the board.
+                    self.grabbed_piece.boardPos = self.getClosestPosition(cursor)
+                    self.grabbed_piece = None
+
+    
+    def getClosestPosition(self, cursor):
+        if not cursor:
+            print("Error in calcDistance. Cursor information not available.")
+
+        xCoord, yCoord = 0, 0
+        shortestDist = float('inf')
+        for i in range(len(self.board.pieceLoc)):
+            for j in range(len(self.board.pieceLoc[i])):
+                dist = math.sqrt((self.board.pieceLoc[i][j][0] - cursor[0]) ** 2 + (self.board.pieceLoc[i][j][1] - cursor[1]) ** 2)
+                if shortestDist > dist:
+                    xCoord, yCoord = self.board.pieceLoc[i][j][0], self.board.pieceLoc[i][j][1]
+                    shortestDist = dist
+        
+        return [xCoord, yCoord]
+
 
     def grab_piece(self, cursorPos, janggiSet):
         for piece in janggiSet.pieces:
@@ -152,7 +174,6 @@ class JanggiGame:
             cursor = pygame.mouse.get_pos()
             self.grabbed_piece.boardPos = [cursor[0], cursor[1]]
         
-        self.screen.fill([255, 255, 255])
         self.screen = self.board.drawBoard()
         for gPiece, rPiece in zip(self.green_set.pieces, self.red_set.pieces):
             gPiece.draw(gPiece.boardPos)
