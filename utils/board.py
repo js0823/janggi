@@ -16,8 +16,17 @@ class Board:
         self.spaceHeight = (self.windowSize - self.xMargin - self.xMargin) // self.boardRow
         self.spaceWidth = (self.windowSize -self.yMargin - self.xMargin) // self.boardCol
         self.background_color = self.boardSettings.color
-        self.pieceLoc = [] # location of where pieces can go. format = [[(x, y), (x + 1, y), (x + 2, y) ...], [(x, y + 1), (x + 1, y + 1)]] ...
-        self.calcPieceLoc()
+
+        self.locCoord = [] # Coordinates of where pieces can go. format = [[(x, y), (x + 1, y), (x + 2, y) ...], [(x, y + 1), (x + 1, y + 1)]] ...
+        for row in range(self.boardRow + 1):
+            thisRow = []
+            y = self.yMargin + row * self.spaceHeight
+            for col in range(self.boardCol + 1):
+                x = self.xMargin + col * self.spaceWidth
+                thisRow.append((x, y))
+            self.locCoord.append(thisRow)
+        
+        self.boardGrid = [[0] * len(self.locCoord[0]) for _ in range(len(self.locCoord))] # array coordinates, like [0][0], [1][1] ...
 
     def drawBoard(self):
         board_surface = pygame.display.set_mode((self.windowSize, self.windowSize))
@@ -49,12 +58,3 @@ class Board:
                         (self.xMargin + 3 * self.spaceWidth, self.yMargin + 9 * self.spaceHeight), (self.xMargin + 5 * self.spaceWidth, self.yMargin + 7 * self.spaceHeight))
 
         return board_surface
-    
-    def calcPieceLoc(self):
-        for row in range(self.boardRow + 1):
-            thisRow = []
-            y = self.yMargin + row * self.spaceHeight
-            for col in range(self.boardCol + 1):
-                x = self.xMargin + col * self.spaceWidth
-                thisRow.append((x, y))
-            self.pieceLoc.append(thisRow)

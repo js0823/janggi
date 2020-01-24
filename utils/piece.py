@@ -1,17 +1,15 @@
 import pygame
 from .settings import BoardSettings
 import json
-import math
 
 class Piece:
-    def __init__(self, game, name, size, image):
+    def __init__(self, game, name, image):
         self.screen = game.screen
-        self.name = name
+        self.name = name # "GreenCha", "RedKing" etc
         self.image = image
-        self.size = size
         self.rect = self.image.get_rect()
-        self.grabbed = False
-        self.boardPos = None # board position in x y coordinate
+        self.boardPos = None # board position in array coordinate like [50, 50], [80, 90] ...
+        self.gridPos = None # grid position, represented like [0, 1], [3, 1] ...
 
     def draw(self, position):
         self.rect.center = position[0], position[1]
@@ -28,15 +26,13 @@ class JanggiSet:
     
     def load_pieces(self):
         pieces_ss = SpriteSheet(self.pieceImages)
-        black_transparency = (0, 0, 0) # for making pieces transparent
+        black_transparency = (0, 0, 0) # to make pieces transparent
 
         for name in ('Cha', 'King', 'Ma', 'Po', 'Sa', 'Sang', 'Zol'):
             rect = (self.pieceData['frames'][self.color + '_' + name + '.png']['frame']['x'],
                         self.pieceData['frames'][self.color + '_' + name + '.png']['frame']['y'],
                         self.pieceData['frames'][self.color + '_' + name + '.png']['frame']['w'],
                         self.pieceData['frames'][self.color + '_' + name + '.png']['frame']['h'])
-            size = (self.pieceData['frames'][self.color + '_' + name + '.png']['sourceSize']['w'],
-                    self.pieceData['frames'][self.color + '_' + name + '.png']['sourceSize']['h'])
             
             num = None
             if name == 'Zol': # there are five Zol
@@ -49,7 +45,7 @@ class JanggiSet:
             for i in range(num):
                 image = pieces_ss.image_at(rect, black_transparency)
                 image = pygame.transform.smoothscale(image, (90, 80))
-                piece = Piece(self.game, self.color + name + str(i), size, image)
+                piece = Piece(self.game, self.color + name + str(i), image)
                 self.pieces.append(piece)
 
 
