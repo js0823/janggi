@@ -78,16 +78,18 @@ class JanggiGame:
     def update_screen(self):
         self.screen = self.board.drawBoard()
 
-        if self.grabbed_piece:
-            for x, y in self.moveList:
-                pygame.draw.circle(self.screen, (255, 0, 0), self.board.locCoord[x][y], 7)
-            cursor = pygame.mouse.get_pos()
-            self.grabbed_piece.boardPos = [cursor[0], cursor[1]]
-        
-        
         for gPiece, rPiece in zip(self.green_set.pieces, self.red_set.pieces):
             gPiece.draw(gPiece.boardPos)
             rPiece.draw(rPiece.boardPos)
+
+        if self.grabbed_piece:
+            for x, y in self.moveList:
+                if self.board.boardGrid[x][y] != 0 and self.turn not in self.board.boardGrid[x][y].name:
+                    pygame.draw.circle(self.screen, (255, 0, 0), self.board.locCoord[x][y], 7)
+                else:
+                    pygame.draw.circle(self.screen, (0, 255, 0), self.board.locCoord[x][y], 7)
+            cursor = pygame.mouse.get_pos()
+            self.grabbed_piece.boardPos = [cursor[0], cursor[1]]
 
         pygame.display.update()
     
@@ -98,7 +100,7 @@ class JanggiGame:
         
         gridX, gridY = None, None
         minDist = float('inf')
-        tolerance = min(self.board_settings.xMargin, self.board_settings.yMargin)
+        tolerance = min(self.board_settings.xMargin, self.board_settings.yMargin) // 2
         for x, y in self.moveList:
             coordX, coordY = self.board.locCoord[x][y][0], self.board.locCoord[x][y][1]
             dist = math.sqrt((coordX - cursor[0]) ** 2 + (coordY - cursor[1]) ** 2)
@@ -136,6 +138,7 @@ class JanggiGame:
         boardLenY = len(self.board.boardGrid[0])
 
         if "Zol" in self.grabbed_piece.name:
+            directions = ()
             if self.turn == "Red":
                 directions = ((0, -1), (0, 1), (-1, 0))
             elif self.turn == "Green":
@@ -181,14 +184,51 @@ class JanggiGame:
                         if self.turn not in self.board.boardGrid[posX][posY].name:
                             self.moveList.append([posX, posY])
         elif "Po" in self.grabbed_piece.name:
-            # TODO
-            pass
-        elif "Sa" in self.grabbed_piece.name:
-            # TODO
-            pass
-        elif "King" in self.grabbed_piece.name:
-            # TODO
-            pass
+            # Po moves by jumping over other team's piece. Po cannot jump other team's Po.
+            # When Po jumps, it can land on other team's piece and kill that piece.
+            directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
+            for x, y in directions:
+                posX, posY = curPos[0] + x, curPos[1] + y
+                while 0 <= posX < boardLenX and 0 <= posY < boardLenY and self.board.boardGrid[posX][posY] == 0:
+                    posX, posY = posX + x, posY + y
+                if 0 <= posX < boardLenX and 0 <= posY < boardLenY and "Po" in self.board.boardGrid[posX][posY].name:
+                    continue
+                else:
+                    posX, posY = posX + x, posY + y
+                    while 0 <= posX < boardLenX and 0 <= posY < boardLenY:
+                        if self.board.boardGrid[posX][posY] != 0 and "Po" in self.board.boardGrid[posX][posY].name:
+                            break
+                        self.moveList.append([posX, posY])
+                        posX, posY = posX + x, posY + y
+
+        elif "Sa" in self.grabbed_piece.name or "King" in self.grabbed_piece.name:
+            # Sa can only move within the square where king resides.
+            lowX, highX, lowY, highY = 0, 0, 0, 0
+            diagPos = []
+            straightPos = []
+            if self.turn == "Green":
+                lowX, highX = 0, 2
+                lowY, highY = 3, 5
+                diagPos = [(0, 3), (0, 5), (2, 3), (2, 5), (1, 4)]
+                straightPos = [(1, 3), (0, 4), (1, 5), (2, 4)]
+            elif self.turn == "Red":
+                lowX, highX = 7, 9
+                lowY, highY = 3, 5
+                diagPos = [(7, 3), (7, 5), (9, 3), (9, 5), (8, 4)]
+                straightPos = [(8, 3), (8, 5), (7, 4), (9, 4)]
+            
+            directions = None
+            if (curPos[0], curPos[1]) in diagPos:
+                directions = ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
+            
+            for x, y in directions:
+                posX, posY = curPos[0] + x, curPos[1] + y
+                if lowX <= posX <= highX and lowY <= posY <= highY:
+                    if self.board.boardGrid[posX][posY] == 0:
+                        self.moveList.append([posX, posY])
+                    else:
+                        if self.turn not in self.board.boardGrid[posX][posY].name:
+                            self.moveList.append([posX, posY])
     
     def check_checkMate(self):
         # if checkmate, return True
