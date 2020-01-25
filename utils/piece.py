@@ -11,8 +11,8 @@ class Piece:
         self.boardPos = None # board position in array coordinate like [50, 50], [80, 90] ...
         self.gridPos = None # grid position, represented like [0, 1], [3, 1] ...
 
-    def draw(self, position):
-        self.rect.center = position[0], position[1]
+    def draw(self, boardPos):
+        self.rect.center = boardPos[0], boardPos[1]
         self.screen.blit(self.image, self.rect)
 
 class JanggiSet:
@@ -23,6 +23,13 @@ class JanggiSet:
         self.pieceImages = pieceImages
         self.pieceData = json.load(open(pieceData))
         self.load_pieces()
+    
+    def __str__(self):
+        s = "["
+        for piece in self.pieces:
+            s += piece.name
+            s += ", "
+        return s + "]"
     
     def load_pieces(self):
         pieces_ss = SpriteSheet(self.pieceImages)
@@ -47,7 +54,9 @@ class JanggiSet:
                 image = pygame.transform.smoothscale(image, (90, 80))
                 piece = Piece(self.game, self.color + name + str(i), image)
                 self.pieces.append(piece)
-
+        
+    def remove_piece(self, piece):
+        self.pieces.remove(piece)
 
 class SpriteSheet:
     def __init__(self, filename):

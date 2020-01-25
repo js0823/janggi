@@ -77,10 +77,10 @@ class JanggiGame:
 
     def update_screen(self):
         self.screen = self.board.drawBoard()
-
-        for gPiece, rPiece in zip(self.green_set.pieces, self.red_set.pieces):
-            gPiece.draw(gPiece.boardPos)
-            rPiece.draw(rPiece.boardPos)
+        for piece in self.green_set.pieces:
+            piece.draw(piece.boardPos)
+        for piece in self.red_set.pieces:
+            piece.draw(piece.boardPos)
 
         if self.grabbed_piece:
             for x, y in self.moveList:
@@ -107,13 +107,20 @@ class JanggiGame:
             if dist < tolerance and dist < minDist:
                 minDist = dist
                 gridX, gridY = x, y
-        
+        print(self.green_set)
+        print(self.red_set)
         if gridX is not None and gridY is not None:
+            if self.board.boardGrid[gridX][gridY] != 0:
+                if self.turn == "Green":
+                    self.red_set.remove_piece(self.board.boardGrid[gridX][gridY])
+                else:
+                    self.green_set.remove_piece(self.board.boardGrid[gridX][gridY])
             self.board.boardGrid[gridX][gridY] = self.grabbed_piece
             self.board.boardGrid[self.grabbed_piece.gridPos[0]][self.grabbed_piece.gridPos[1]] = 0
             self.grabbed_piece.boardPos = self.board.locCoord[gridX][gridY]
             self.grabbed_piece.gridPos = [gridX, gridY]
-            
+            print(self.green_set)
+            print(self.red_set)
             return True
         else:
             self.grabbed_piece.boardPos = self.board.locCoord[self.grabbed_piece.gridPos[0]][self.grabbed_piece.gridPos[1]]
@@ -130,6 +137,8 @@ class JanggiGame:
     
     def fillAvailableMoves(self):
         # returns all grid positions in which the piece is able to move.
+        # TODO: If other team's piece is in the way, some pieces seems to have rules that disallows movement.
+        # From my understandning of the rule, Ma and Sang cannot move in the direction if a piece is blocking the way.
         if not self.grabbed_piece:
             return []
         
@@ -220,6 +229,8 @@ class JanggiGame:
             directions = None
             if (curPos[0], curPos[1]) in diagPos:
                 directions = ((-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1))
+            else:
+                directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
             
             for x, y in directions:
                 posX, posY = curPos[0] + x, curPos[1] + y
@@ -237,15 +248,6 @@ class JanggiGame:
     def check_check(self):
         # if check, next user must make sure the king is not checked.
         pass
-
-    # def update_moveList(self, piece):
-    #     if "Cha" in piece.name:
-    #     elif "Ma" in piece.name:
-    #     elif "Po" in piece.name:
-    #     elif "Sa" in piece.name:
-    #     elif "Sang" in piece.name:
-    #     elif "Zol" in piece.name:
-    #     else: # it is king
 
     def initialize_pieces(self):
         zolPos = 0
