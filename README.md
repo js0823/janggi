@@ -1,13 +1,11 @@
 # Janggi
 
-Jangi is a traditional Asian chess-like game where two players move a piece turn-by-turn and defeat the opponent by killing the King at the end. In this project, the aim is to write a Python program where either two players can play.
+Jangi is a traditional Korean chess-like game where two players move a piece turn-by-turn and defeat the opponent by killing the King at the end. The project's aim is to write a Python program where two players can play, and implement machine learning algorithms to play the game for the sake of learning.
+
+I started this project a while ago, but have only begun writing code recently. I have decided to move on from this project because I have other ideas. Feel free to do whatever you want with the code here. I will return to this project to finish it once I am done with others.
 
 ## Tasks
 
-1. Write a code to generate Jangi board with pieces.
-2. Apply Jangi rules.
-3. Be able to show where the piece can move to when a piece is selected.
-4. Add a simple AI for testing.
-5. Add feature to play the game.
-6. Add screen to choose number of players.
-7. Improve AI by using machine learning to learn to play the game.
+1. Create a Janggi game using pygame package, where two players can play against each other.
+2. Write AI program which will play and improve after each iterations.
+3. Have fun!
